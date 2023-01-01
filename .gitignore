@@ -1,0 +1,6 @@
+.DS_Store
+.idea
+LEVEL
+venv
+*.zip
+__pycache__
