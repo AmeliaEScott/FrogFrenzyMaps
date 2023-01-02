@@ -22,7 +22,6 @@ class Definitions:
             line = line.strip().split(",")
             self.up, self.down, self.left, self.front, self.right, self.back = \
                 map(lambda t: None if t.strip() == "NULL" else t.strip(), line)
-            print(line)
 
     class Sprite:
         def __init__(self, line):
