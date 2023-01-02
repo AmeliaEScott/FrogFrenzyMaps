@@ -27,22 +27,22 @@ class LevelMap:
     def __init__(self, dims, path):
         self.path = path
         with open(path, "rb") as fp:
-            self.data: np.ndarray = np.fromfile(fp, dtype=np.dtype("<i2"))
+            self.data: np.ndarray = np.fromfile(fp, dtype=np.dtype("<i1"))
 
         total_size = self.data.shape[0]
-        map_size = dims[0] * dims[1] * 11
+        map_size = dims[0] * dims[1] * LevelMap.Tile.itemsize
 
-        sprite_start = 4
+        sprite_start = 8
         map_start = total_size - map_size
 
-        self.sprites = self.data[sprite_start:map_start - 2]\
+        self.sprites = self.data[sprite_start:map_start - 4]\
             .view(dtype=LevelMap.Sprite)\
             .reshape((-1))
 
         self.tiles = self.data[map_start:]\
-            .reshape([dims[0], dims[1], 11])\
+            .reshape([dims[0], dims[1], LevelMap.Tile.itemsize])\
             .view(dtype=LevelMap.Tile)
-        self.dims = self.data[map_start - 2:map_start]
+        self.dims = self.data[map_start - 4:map_start].view(dtype="<u2")
         assert np.all(self.dims == self.tiles.shape[0:2])
 
         # self.data = self.data.reshape([-1, 11])
