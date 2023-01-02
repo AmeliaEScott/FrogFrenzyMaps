@@ -10,20 +10,16 @@ level1map = frogfrenzy.Level(
 
 
 def cheat_level0():
+    # Road of bricks and grass to the finish
     level0map.level_map.tiles[:, 7]["id"] = 100
     level0map.level_map.tiles[1:14, 8]["id"] = 80
     level0map.level_map.tiles[1:14, 6]["id"] = 80
 
+    # Crossways brick road
     level0map.level_map.tiles[12, :]["id"] = 100
 
-    level0map.level_map.tiles[11, 7]["corner_top_nw_height"] = 10
-    level0map.level_map.tiles[11, 7]["corner_top_ne_height"] = 10
-    level0map.level_map.tiles[11, 7]["corner_top_sw_height"] = 10
-    level0map.level_map.tiles[11, 7]["corner_top_se_height"] = 10
-    level0map.level_map.tiles[11, 7]["corner_bottom_sw_height"] = 5
-    level0map.level_map.tiles[11, 7]["corner_bottom_nw_height"] = 5
-    level0map.level_map.tiles[11, 7]["corner_bottom_se_height"] = 5
-    level0map.level_map.tiles[11, 7]["corner_bottom_ne_height"] = 0
+    # Wood to mark starting location
+    level0map.level_map.tiles[13, 7]["id"] = 104
 
     arrows = np.logical_or(
         np.logical_or(
@@ -37,8 +33,11 @@ def cheat_level0():
     )
     level0map.level_map.tiles["id"][arrows] = 100
 
-    level0map.level_map.sprites["id"] = 64
-    level0map.level_map.sprites["id"][15] = 1
+    # level0map.level_map.sprites["id"] = 64
+    # Make sure Sprite 15 is the starting location
+    level0map.level_map.sprites[15]["id"] = 1
+
+    # level0map.level_map.sprites[15]["unknown"][-4] = 12
     level0map.write()
 
 

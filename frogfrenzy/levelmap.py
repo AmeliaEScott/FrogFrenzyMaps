@@ -5,7 +5,7 @@ class LevelMap:
 
     Tile = np.dtype([
         ("id", "<u2"),
-        ("filler", "<u2"),
+        ("unknown", "<u2"),
         ("corner_top_sw_height", "<i2"),
         ("corner_top_nw_height", "<i2"),
         ("corner_top_se_height", "<i2"),
@@ -20,6 +20,7 @@ class LevelMap:
     Sprite = np.dtype([
         ("id", "<u2"),
         ("unknown", "55u1"),
+        # ("pos_x", "<u2"),
         ("brightness", "<u2")
     ])
 
