@@ -6,14 +6,14 @@ class LevelMap:
     Tile = np.dtype([
         ("id", "<u2"),
         ("filler", "<u2"),
-        ("corner_uaa_height", "<i2"),
-        ("corner_uab_height", "<i2"),
-        ("corner_uac_height", "<i2"),
-        ("corner_uad_height", "<i2"),
-        ("corner_daa_height", "<i2"),
-        ("corner_dab_height", "<i2"),
-        ("corner_dac_height", "<i2"),
-        ("corner_dad_height", "<i2"),
+        ("corner_top_sw_height", "<i2"),
+        ("corner_top_nw_height", "<i2"),
+        ("corner_top_se_height", "<i2"),
+        ("corner_top_ne_height", "<i2"),
+        ("corner_bottom_sw_height", "<i2"),
+        ("corner_bottom_nw_height", "<i2"),
+        ("corner_bottom_se_height", "<i2"),
+        ("corner_bottom_ne_height", "<i2"),
         ("brightness", "<i2"),
     ])
 
