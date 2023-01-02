@@ -1,4 +1,4 @@
-from frogfrenzy import Definitions, LevelMap
+from frogfrenzy import Definitions, LevelMap, Config
 import os
 
 
@@ -9,8 +9,8 @@ class Level:
         if extension.upper() not in [".TXT", ".MAP", ".DEF"]:
             raise RuntimeError(f"Invalid file extension: {extension}")
         self.definitions = Definitions(path + ".DEF")
-        self.level_map = LevelMap((self.definitions.world_size, self.definitions.world_size),
-                                  path + ".MAP")
+        self.level_map = LevelMap(path + ".MAP")
+        self.config = Config(path + ".TXT")
 
     def write(self):
         self.level_map.write()
