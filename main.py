@@ -1,64 +1,49 @@
 # from matplotlib import pyplot as plt; import numpy as np; import main; arr = main.read_file("LEVEL/LEVEL0.MAP")
 import frogfrenzy
+from frogfrenzy import mapascii
 import numpy as np
 
-levels = []
 
-for i in range(22):
-    levels.append(frogfrenzy.Level("3DFROG.DAT/LEVEL/LEVEL" + str(i) + ".MAP"))
-    
-def bitmap_name_to_char(str):
-    if 'grass' in str:
-        return '.'
-    elif 'asphalt' in str:
-        return '_'
-    elif 'water' in str:
-        return '/'
-    elif 'brick' in str:
-        return 'B'
-    elif 'tunnel' in str:
-        return '@'
-    elif 'wood' in str:
-        return 'W'
-    elif 'marble' in str:
-        return 'M'
-    elif 'arrow' in str:
-        if 'up' in str:
-            return '^'
-        elif 'down' in str:
-            return 'v'
-        elif 'left' in str:
-            return '<'
-        elif 'right' in str:
-            return '>'
-        else:
-            return '?'
-    elif 'home' in str:
-        return '$'
-    else:
-        return '?'
+level0map = frogfrenzy.Level(
+    "/Users/Timmy/VirtualBox VMs/Shared Folder/3D Frog Frenzy (Unmodified)/LEVEL/LEVEL0.MAP")
+level1map = frogfrenzy.Level(
+    "/Users/Timmy/VirtualBox VMs/Shared Folder/3D Frog Frenzy (Unmodified)/LEVEL/LEVEL1.MAP")
+
+
+def cheat_level0():
+    # Road of bricks and grass to the finish
+    level0map.level_map.tiles[:, 7]["id"] = 100
+    level0map.level_map.tiles[1:14, 8]["id"] = 80
+    level0map.level_map.tiles[1:14, 6]["id"] = 80
+
+    # Crossways brick road
+    level0map.level_map.tiles[12, :]["id"] = 100
+
+    # Wood to mark starting location
+    level0map.level_map.tiles[13, 7]["id"] = 104
+
+    arrows = np.logical_or(
+        np.logical_or(
+            level0map.level_map.tiles["id"] == 3,
+            level0map.level_map.tiles["id"] == 4,
+        ),
+        np.logical_or(
+            level0map.level_map.tiles["id"] == 28,
+            level0map.level_map.tiles["id"] == 29,
+        )
+    )
+    level0map.level_map.tiles["id"][arrows] = 100
+
+    # level0map.level_map.sprites["id"] = 64
+    # Make sure Sprite 15 is the starting location
+    level0map.level_map.sprites[15]["id"] = 1
+
+    # level0map.level_map.sprites[15]["unknown"][-4] = 12
+    level0map.write()
+
 
 if __name__ == "__main__":
-    # for i in level.level_map.tiles:
-        # for j in i:
-            # for k in j:
-                # try:
-                    # print(level.definitions.tiles[k["id"]].up, end=' ')
-                    # break
-                # except KeyError:
-                    # print('NULL', end=' ')
-        # print('\n')
-    for level in levels:
-        print(level.config.level_title['eng'])
-        print('DEF (visual) dimensions: ' + str([level.definitions.world_size, level.definitions.world_height]))
-        print('MAP (logical) dimensions: ' + str(np.flip(level.level_map.dims)))
-        for i in level.level_map.tiles:
-            for j in i:
-                for k in j:
-                    try:
-                        print(bitmap_name_to_char(level.definitions.tiles[k["id"]].up), end=' ')
-                        break
-                    except KeyError:
-                        print(' ', end=' ')
-            print('')
-        input()
+    # cheat_level0()
+    levels = frogfrenzy.mapascii.get_all_levels("LEVEL")
+    print(f"Total of {len(levels)} levels.")
+    frogfrenzy.mapascii.print_all_levels(levels)
