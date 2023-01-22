@@ -87,6 +87,10 @@ class Definitions:
                     self.parse_tile(line)
                 elif firstchar == "&":
                     self.parse_sprite(line)
+                elif firstchar == "*":
+                    self.parse_moving_tile(line)
+                elif firstchar == "+":
+                    self.parse_moving_sprite(line)
                 else:
                     pass  # Comments, blank lines, etc
 
@@ -146,3 +150,10 @@ class Definitions:
         sprite = Definitions.Sprite(line)
         self.sprites[sprite.number] = sprite
 
+    def parse_moving_tile(self, line):
+        # TODO
+        pass
+    
+    def parse_moving_sprite(self, line):
+        # TODO
+        pass

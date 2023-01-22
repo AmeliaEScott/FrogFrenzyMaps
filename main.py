@@ -1,5 +1,6 @@
 # from matplotlib import pyplot as plt; import numpy as np; import main; arr = main.read_file("LEVEL/LEVEL0.MAP")
 import frogfrenzy
+from frogfrenzy import mapascii
 import numpy as np
 
 
@@ -42,4 +43,7 @@ def cheat_level0():
 
 
 if __name__ == "__main__":
-    cheat_level0()
+    # cheat_level0()
+    levels = frogfrenzy.mapascii.get_all_levels("LEVEL")
+    print(f"Total of {len(levels)} levels.")
+    frogfrenzy.mapascii.print_all_levels(levels)
