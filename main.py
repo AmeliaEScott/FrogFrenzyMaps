@@ -1,4 +1,4 @@
-# from matplotlib import pyplot as plt; import numpy as np; import main; arr = main.read_file("LEVEL/LEVEL0.MAP")
+# import numpy as np; import main as m; import frogfrenzy as ff; nonzero = np.any(m.level0map.level_map.sprites["unknown1"], axis=0); np.set_printoptions(linewidth=120)
 import frogfrenzy
 from frogfrenzy import mapascii
 import numpy as np
@@ -9,6 +9,23 @@ level0map = frogfrenzy.Level(
 level1map = frogfrenzy.Level(
     "/Users/Timmy/VirtualBox VMs/Shared Folder/3D Frog Frenzy (Unmodified)/LEVEL/LEVEL1.MAP")
 
+
+def get_level(i):
+    return frogfrenzy.Level(
+        f"/Users/Timmy/VirtualBox VMs/Shared Folder/3D Frog Frenzy (Unmodified)/LEVEL/LEVEL{i}.MAP")
+
+
+def get_all_levels():
+    levels = []
+    for i in range(0, 22):
+        levels.append(get_level(i))
+    return levels
+
+
+def is_all_zero(levels, label):
+    for i, l in enumerate(levels):
+        z = np.any(l.level_map.sprites[label])
+        print(f"Level {i} has nonzero {label}: {z}")
 
 def cheat_level0():
     # Road of bricks and grass to the finish
@@ -35,15 +52,12 @@ def cheat_level0():
     level0map.level_map.tiles["id"][arrows] = 100
 
     # level0map.level_map.sprites["id"] = 64
+    level0map.level_map.sprites[13]["id"] = 78
     # Make sure Sprite 15 is the starting location
     level0map.level_map.sprites[15]["id"] = 1
 
-    # level0map.level_map.sprites[15]["unknown"][-4] = 12
     level0map.write()
 
 
 if __name__ == "__main__":
-    # cheat_level0()
-    levels = frogfrenzy.mapascii.get_all_levels("LEVEL")
-    print(f"Total of {len(levels)} levels.")
-    frogfrenzy.mapascii.print_all_levels(levels)
+    cheat_level0()
