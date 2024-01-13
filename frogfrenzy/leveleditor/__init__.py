@@ -13,6 +13,10 @@ class LevelEditor(wx.Frame):
         notebook.AddPage(DefEditor(notebook), "Definitions", select=True)
         notebook.AddPage(ConfigEditor(notebook), "Configuration", select=False)
 
+        sizer = wx.BoxSizer(wx.VERTICAL)
+        sizer.Add(notebook, wx.SizerFlags().Border(wx.TOP | wx.LEFT, 0))
+        self.SetSizer(sizer)
+
         self.makeMenuBar()
 
     def makeMenuBar(self):
